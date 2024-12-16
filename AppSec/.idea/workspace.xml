@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="955aa605-e3cf-442b-84d2-e0153addf9af" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="cdi.beans_4_1" />
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2pKomApso7HPpUIKw9nfrd9hKYd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.PKCEHelper.executor": "Run",
+    "Application.PKCE_Challenge.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JUnit.TestJwtManager.testGenerateToken.executor": "Run",
+    "JUnit.TestJwtManager.testGenerateTokenAndVerifyToken.executor": "Run",
+    "JUnit.TestJwtManager.testKeyPairGeneration.executor": "Run",
+    "JUnit.TestJwtManager.testSignatureFromAPI.executor": "Run",
+    "Maven.AppSec [clean].executor": "Run",
+    "Maven.AppSec [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.AppSec [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
+    "Maven.AppSec [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/MSI/Desktop/Middelware/Smart_Park",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.TestJwtManager.testGenerateToken">
+    <configuration name="TestJwtManager.testGenerateToken" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AppSec" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tn.supcom.appsec.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tn.supcom.appsec.security" />
+      <option name="MAIN_CLASS_NAME" value="tn.supcom.appsec.security.TestJwtManager" />
+      <option name="METHOD_NAME" value="testGenerateToken" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestJwtManager.testGenerateTokenAndVerifyToken" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AppSec" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tn.supcom.appsec.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tn.supcom.appsec.security" />
+      <option name="MAIN_CLASS_NAME" value="tn.supcom.appsec.security.TestJwtManager" />
+      <option name="METHOD_NAME" value="testGenerateTokenAndVerifyToken" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestJwtManager.testKeyPairGeneration" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AppSec" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tn.supcom.appsec.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tn.supcom.appsec.security" />
+      <option name="MAIN_CLASS_NAME" value="tn.supcom.appsec.security.TestJwtManager" />
+      <option name="METHOD_NAME" value="testKeyPairGeneration" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestJwtManager.testSignatureFromAPI" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AppSec" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tn.supcom.appsec.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tn.supcom.appsec.security" />
+      <option name="MAIN_CLASS_NAME" value="tn.supcom.appsec.security.TestJwtManager" />
+      <option name="METHOD_NAME" value="testSignatureFromAPI" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestJwtManager.testGenerateToken" />
+        <item itemvalue="JUnit.TestJwtManager.testSignatureFromAPI" />
+        <item itemvalue="JUnit.TestJwtManager.testKeyPairGeneration" />
+        <item itemvalue="JUnit.TestJwtManager.testGenerateTokenAndVerifyToken" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="955aa605-e3cf-442b-84d2-e0153addf9af" name="Changes" comment="" />
+      <created>1732524284369</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732524284369</updated>
+      <workItem from="1732524285484" duration="7757000" />
+      <workItem from="1732606674589" duration="9267000" />
+      <workItem from="1732622839764" duration="4662000" />
+      <workItem from="1732968481491" duration="11327000" />
+      <workItem from="1732990951433" duration="7778000" />
+      <workItem from="1733045773549" duration="14644000" />
+      <workItem from="1733127417388" duration="12873000" />
+      <workItem from="1733213888853" duration="1604000" />
+      <workItem from="1733223226002" duration="10976000" />
+      <workItem from="1733582508780" duration="189000" />
+      <workItem from="1733582725440" duration="25000" />
+      <workItem from="1733582763082" duration="1272000" />
+      <workItem from="1733584207168" duration="2361000" />
+      <workItem from="1733587988322" duration="3314000" />
+      <workItem from="1733591323538" duration="8125000" />
+      <workItem from="1733605860427" duration="3830000" />
+      <workItem from="1733667052858" duration="11914000" />
+      <workItem from="1733688354008" duration="7480000" />
+      <workItem from="1733696347075" duration="239000" />
+      <workItem from="1733732903456" duration="86000" />
+      <workItem from="1733734490140" duration="25988000" />
+      <workItem from="1733817522324" duration="5260000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/tn/supcom/appsec/entities/User.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/tn/supcom/appsec/controllers/UserManager.java</url>
+          <line>18</line>
+          <properties class="tn.supcom.appsec.controllers.UserManager" method="findByUsername">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
