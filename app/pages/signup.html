@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Smart Park</title>
+    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="signup-container">
+        <div class="logo-container">
+            <!-- Logo Section -->
+            <img src="../images/smartpark.png" alt="Smart Park Logo" class="logo">
+        </div>
+
+        <div class="form-container">
+            <h1>Create Your Account</h1>
+            <p>Sign up to get started with Smart Park</p>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm">
+                <!-- Username -->
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group password-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="input-group password-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" required>
+                        I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                </div>
+
+                <!-- Sign Up Button -->
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <!-- Redirect to Sign In -->
+            <p class="signin-link">
+                Already have an account? <a href="signin.html">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Toggle Password Visibility Script -->
+    <script>
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        }
+    </script>
+</body>
+
+</html>
