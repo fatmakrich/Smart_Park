@@ -1,58 +1,48 @@
-import { generateClientId, generateCodeVerifier, generateCodeChallenge } from './oauth.js';
+import VanillaRouter from './router.js';  // Assure-toi que le fichier router.js est bien dans le dossier js
 
+// Définir le routeur avec les routes
+const router = new VanillaRouter({
+    type: 'history',  // Utilisation de l'historique de navigation
+    routes: {
+        '/': () => loadPage('home'),  // Route d'accueil
+        '/signin': () => loadPage('signin'),
+        '/signup': () => loadPage('signup'),
+    }
+});
+
+// Lancer le routeur
+router.listen();
+
+// Fonction pour charger dynamiquement une page HTML
 async function loadPage(page) {
     const root = document.getElementById('root');
-
+    const head = document.querySelector('head');
     try {
-        // Fetch and load the HTML content for the page
+        // Charger le contenu de la page demandée
         const response = await fetch(`./pages/${page}.html`);
         if (!response.ok) {
-            throw new Error(`Page ${page} not found`);
+            throw new Error(`Erreur: Impossible de charger la page ${page}`);
         }
 
-        const content = await response.text();
-        root.innerHTML = content;
+        // Vider le contenu du root
+        root.innerHTML = await response.text();
 
-        // Dynamically load the correct CSS file
-        const existingLink = document.getElementById('dynamic-css');
+        // Ajouter dynamiquement le fichier CSS spécifique à la page
+        const existingLink = document.querySelector(`#page-style`);
         if (existingLink) {
-            existingLink.remove();
+            existingLink.remove();  // Supprimer l'ancien fichier CSS si présent
         }
 
-        const cssLink = document.createElement('link');
-        cssLink.rel = 'stylesheet';
-        cssLink.id = 'dynamic-css';
-        cssLink.href = `./css/${page}.css`;
-        document.head.appendChild(cssLink);
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `./css/${page}.css`;  // Charger le CSS spécifique à la page
+        link.id = 'page-style';  // Id pour pouvoir le manipuler
+        head.appendChild(link);
 
-        // Special logic for home page
-        if (page === 'home') {
-            const button = document.getElementById('goToSignIn');
-            if (button) {
-                button.addEventListener('click', async () => {
-                    // Generate client ID, code verifier, and code challenge
-                    const clientId = generateClientId();
-                    const codeVerifier = generateCodeVerifier();
-                    const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-                    // Set code challenge in a secure cookie (excluding HttpOnly)
-                    document.cookie = `code_challenge=${codeChallenge}; Secure; SameSite=Strict`;
-
-                    // Log the values in the console
-                    console.log('Client ID:', clientId);
-                    console.log('Code Verifier:', codeVerifier);
-                    console.log('Code Challenge:', codeChallenge);
-
-                    // Navigate to the SignIn page
-                    loadPage('SignIn');
-                });
-            }
-        }
     } catch (error) {
-        console.error('Error loading page:', error.message);
-        root.innerHTML = `<p>Error: Could not load the page.</p>`;
+        root.innerHTML = `<h1>Erreur: ${error.message}</h1>`;
     }
 }
 
-// Start with the home page
-loadPage('home');
+// Rediriger vers la page d'accueil
+router.setRoute('/');

@@ -1,37 +1,50 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #D2BC47; /* Même couleur d'arrière-plan */
+  background-color: #D2BC47;
+  /* Même couleur d'arrière-plan */
 }
 
 .find-page {
   padding: 20px;
   box-sizing: border-box;
-  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+  height: 100vh;
+  /* Prend toute la hauteur de la fenêtre */
   display: flex;
-  flex-direction: column; /* Les éléments sont organisés en colonne */
+  flex-direction: column;
+  /* Les éléments sont organisés en colonne */
 }
 
 /* Image de recherche positionnée en haut à gauche */
 .search-image-container {
-  position: absolute; /* Positionnement absolu pour mettre l'image dans un coin */
-  top: 20px; /* Distance du haut */
-  left: 20px; /* Distance de la gauche */
-  max-width: 100px; /* Taille maximale de l'image */
-  width: 10vw; /* Ajustement dynamique selon la taille de la fenêtre */
-  min-width: 50px; /* Taille minimale */
+  position: absolute;
+  /* Positionnement absolu pour mettre l'image dans un coin */
+  top: 20px;
+  /* Distance du haut */
+  left: 20px;
+  /* Distance de la gauche */
+  max-width: 100px;
+  /* Taille maximale de l'image */
+  width: 10vw;
+  /* Ajustement dynamique selon la taille de la fenêtre */
+  min-width: 50px;
+  /* Taille minimale */
 }
 
 .search-image {
-  width: 100%; /* S'adapte au conteneur */
-  height: auto; /* Maintient les proportions */
+  width: 100%;
+  /* S'adapte au conteneur */
+  height: auto;
+  /* Maintient les proportions */
   border-radius: 10px;
 }
 
 /* Conteneur pour les textes */
 .text-container {
-  margin-top: 200px; /* Espace significatif après l'image */
-  margin-left: 20px; /* Décalage pour éviter l'image à gauche */
+  margin-top: 200px;
+  /* Espace significatif après l'image */
+  margin-left: 20px;
+  /* Décalage pour éviter l'image à gauche */
 }
 
 /* Titre principal */
@@ -39,54 +52,85 @@ body {
   font-size: 2rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 10px; /* Espacement avec le sous-titre */
-  text-align: left; /* Aligne le texte à gauche */
+  margin-bottom: 10px;
+  /* Espacement avec le sous-titre */
+  text-align: left;
+  /* Aligne le texte à gauche */
 }
 
 /* Sous-titre */
 .subtitle {
   font-size: 1.2rem;
-  color: #555; /* Couleur plus faible pour le sous-titre */
-  text-align: left; /* Aligne le texte à gauche */
+  color: #555;
+  /* Couleur plus faible pour le sous-titre */
+  text-align: left;
+  /* Aligne le texte à gauche */
 }
 
 /* Conteneur pour l'image de voiture */
 .car-image-container {
   display: flex;
-  justify-content: center; /* Centre horizontalement l'image de voiture */
-  width: 100%; /* S'assure que le conteneur occupe toute la largeur */
-  margin-top: 50px; /* Distance entre les textes et l'image de voiture */
+  justify-content: center;
+  /* Centre horizontalement l'image de voiture */
+  width: 100%;
+  /* S'assure que le conteneur occupe toute la largeur */
+  margin-top: 50px;
+  /* Distance entre les textes et l'image de voiture */
 }
 
 .car-image {
-  max-width: 800px; /* Limite la largeur de l'image de voiture */
-  width: 80%; /* Ajustement dynamique */
-  height: auto; /* Maintient les proportions */
+  max-width: 800px;
+  /* Limite la largeur de l'image de voiture */
+  width: 80%;
+  /* Ajustement dynamique */
+  height: auto;
+  /* Maintient les proportions */
   border-radius: 10px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .search-image-container {
-    max-width: 80px; /* Réduit la taille maximale de l'image */
-    width: 15vw; /* Ajustement dynamique sur petit écran */
+    max-width: 80px;
+    /* Réduit la taille maximale de l'image */
+    width: 15vw;
+    /* Ajustement dynamique sur petit écran */
   }
 
   .text-container {
-    margin-left: 20px; /* Ajuste la marge pour petits écrans */
-    margin-top: 200px; /* Réduit l'espace entre l'image et les textes */
+    margin-left: 20px;
+    /* Ajuste la marge pour petits écrans */
+    margin-top: 200px;
+    /* Réduit l'espace entre l'image et les textes */
   }
 
   .main-title {
-    font-size: 1.8rem; /* Ajuste la taille du titre principal */
+    font-size: 1.8rem;
+    /* Ajuste la taille du titre principal */
   }
 
   .subtitle {
-    font-size: 1rem; /* Ajuste la taille du sous-titre */
+    font-size: 1rem;
+    /* Ajuste la taille du sous-titre */
   }
 
   .car-image {
-    max-width: 600px; /* Réduit la taille maximale de l'image sur petits écrans */
-    width: 90%; /* Plus d'espace dynamique */
+    max-width: 600px;
+    /* Réduit la taille maximale de l'image sur petits écrans */
+    width: 90%;
+    /* Plus d'espace dynamique */
   }
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgb(83, 181, 196);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #137788;
 }
