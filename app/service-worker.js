@@ -1,21 +1,25 @@
-const CACHE_NAME = 'smartpark-cache';
-const urlsToCache = [
+let cacheName = 'smartpark-cache';
+let filesToCache = [
     '/',
     '/index.html',
     '/pages/home.html',
+    '/pages/home2.html',
     '/pages/signin.html',
+    '/pages/signup.html',
+
     '/css/home.css',
+    '/css/home2.css',
     '/css/signin.css',
+    '/css/signup.css',
+    '/css/style.css',
+
     '/js/main.js',
-    '/js/signin.js',
-    '/images/smartpark.png',
-    '/images/favicon.ico'
 ];
 
 // Installer le service worker et mettre en cache les fichiers
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
+        caches.open(cacheName).then((cache) => {
             return cache.addAll(urlsToCache);
         })
     );

@@ -1,67 +1,119 @@
 import Events from "./events.js";
 
+const ROUTER_TYPES = {
+    hash: "hash",
+    history: "history",
+},
+    defer = (x) => {
+        setTimeout(() => x(), 10);
+    };
+
+/**
+ * SPA Router - replacement for Framework Routers (history and hash).
+ */
 class VanillaRouter {
     constructor(options = {}) {
         this.events = new Events(this);
-        this.options = { type: 'history', ...options };
-        // Vérifie que les routes sont définies correctement
-        if (!this.options.routes) throw new TypeError("Routes are not defined!");
-        this.routeHash = Object.keys(this.options.routes);
-        if (!this.routeHash.length) throw new TypeError("No routes defined!");
+        this.options = { type: ROUTER_TYPES.hash, ...options };
     }
 
+    /**
+     * Start listening for route changes.
+     * @returns {VanillaRouter} reference to itself.
+     */
     listen() {
+        this.routeHash = Object.keys(this.options.routes);
+
         if (!this.routeHash.includes("/")) throw TypeError("No home route found");
+
         if (this.isHashRouter) {
             window.addEventListener("hashchange", this._hashChanged.bind(this));
-            setTimeout(() => this._tryNav(location.hash.substr(1)), 10);  // Navigation initiale
+            defer(() => this._tryNav(document.location.hash.substr(1)));
         } else {
+            var href = document.location.origin;
+            if (this._findRoute(document.location.pathname)) {
+                href += document.location.pathname;
+            }
             document.addEventListener("click", this._onNavClick.bind(this));
             window.addEventListener("popstate", this._triggerPopState.bind(this));
-            setTimeout(() => this._tryNav(location.pathname), 10);  // Navigation initiale sans hash
+
+            defer(() => this._tryNav(href));
         }
+        return this;
     }
 
     _hashChanged() {
-        this._tryNav(location.hash.substr(1));
+        this._tryNav(document.location.hash.substr(1));
     }
 
     _triggerPopState(e) {
-        // La gestion du changement d'état (par exemple, retour en arrière)
-        this.events.trigger("route", { path: e.state.path, url: location.href });
+        this._triggerRouteChange(e.state.path, e.target.location.href);
     }
 
-    _tryNav(href) {
-        const url = new URL(href, location.origin);
-        const routePath = this._findRoute(url.pathname);
-        if (routePath) {
-            // Si la route existe, on change l'URL et on déclenche l'événement
-            history.pushState({ path: routePath }, routePath, url.pathname);
-            this.events.trigger("route", { path: routePath, url: url.href });
-            return true;
-        }
+    _triggerRouteChange(path, url) {
+        this.events.trigger("route", {
+            route: this.options.routes[path],
+            path: path,
+            url: url,
+        });
     }
 
     _findRoute(url) {
-        // On vérifie si l'URL correspond à une route définie
-        return this.routeHash.includes(url) ? url : null;
+        var test =
+            "/" +
+            url.match(/([A-Za-z_0-9.]*)/gm, (match, token) => {
+                return token;
+            })[1];
+        return this.routeHash.includes(test) ? test : null;
+    }
+
+    _tryNav(href) {
+        const url = this._createUrl(href);
+        if (url.protocol.startsWith("http")) {
+            const routePath = this._findRoute(url.pathname);
+            if (routePath && this.options.routes[routePath]) {
+                if (this.options.type === "history") {
+                    window.history.pushState(
+                        { path: routePath },
+                        routePath,
+                        url.origin + url.pathname
+                    );
+                }
+                this._triggerRouteChange(routePath, url);
+                return true;
+            }
+        }
+    }
+
+    _createUrl(href) {
+        if (this.isHashRouter && href.startsWith("#")) {
+            href = href.substr(1);
+        }
+        return new URL(href, document.location.origin);
     }
 
     _onNavClick(e) {
-        const href = e.target.closest("[href]")?.href;
-        if (href && this._tryNav(href)) e.preventDefault(); // On empêche le comportement par défaut si c'est une navigation interne
+        // handle click in document
+        const href = e.target?.closest("[href]")?.href;
+        if (href && this._tryNav(href)) e.preventDefault();
     }
 
+    /**
+     * Makes the router navigate to the given route
+     * @param {String} path
+     */
     setRoute(path) {
-        // Si la route n'existe pas, on lance une erreur
-        if (!this._findRoute(path)) throw new TypeError("Invalid route");
-        history.replaceState(null, null, path);
-        this._tryNav(path);
+        if (!this._findRoute(path)) throw TypeError("Invalid route");
+
+        var href = this.isHashRouter ? "#" + path : document.location.origin + path;
+        history.replaceState(null, null, href);
+        this._tryNav(href);
     }
 
     get isHashRouter() {
-        return this.options.type === 'hash'; // Retourne true si on utilise le hash pour la navigation
+        return this.options.type === ROUTER_TYPES.hash;
     }
 }
 
 export default VanillaRouter;
+
