@@ -1,58 +1,63 @@
-/* Sign In Page Styles */
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background:  #D2BC47;
+    margin: 0;
+    padding: 0;
 }
 
-/* Centering the signin-container */
+/* Signin Container Styling */
 .signin-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 30px;
+    background: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
     width: 100%;
     max-width: 400px;
 }
 
-/* Logo styling */
+/* Logo Styling */
 .logo-container {
     text-align: center;
 }
 
 .logo {
-    width: 150px;
-    margin-bottom: 20px;
+    width: 120px;
+    margin-bottom: 10px;
 }
 
-/* Form container */
-.form-container {
-    width: 100%;
+/* Welcome Heading and Subtext */
+.form-container h1  {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 10px;
     text-align: center;
 }
 
-h1 {
-    font-size: 24px;
-    color: #333;
-}
-
-p {
+.form-container p {
     font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
+    color: #777;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
+/* Input Group */
 .input-group {
-    margin-bottom: 15px;
+    position: relative;
+    margin-bottom: 20px;
     text-align: left;
 }
 
@@ -65,30 +70,70 @@ p {
 
 .input-group input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 12px 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 14px;
-    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
 }
 
+.input-group input:focus {
+    outline: none;
+    border-color: #D2BC47;
+    box-shadow: 0 0 5px rgba(210, 188, 71, 0.5);
+}
+
+/* Remember Me and Forgot Password */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.options input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: black;
+}
+
+.options .forgot-password {
+    text-decoration: none;
+    color: black;
+    
+}
+
+.options .forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
+    padding: 12px;
+    background-color: #D2BC47;
     color: white;
     font-size: 16px;
+    
+    text-transform: uppercase;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #D2BC47;
 }
 
+/* Sign Up Link */
 .signup-link {
     margin-top: 20px;
     font-size: 14px;
@@ -96,10 +141,32 @@ button:hover {
 }
 
 .signup-link a {
-    color: #4CAF50;
+    color: black;
+    
     text-decoration: none;
 }
 
 .signup-link a:hover {
     text-decoration: underline;
+}
+
+/* Password Group with Toggle Visibility */
+.password-group {
+    position: relative;
+}
+
+
+.password-group .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #777;
+    transition: color 0.3s;
+}
+
+.password-group .toggle-password:hover {
+    color: #333;
 }
