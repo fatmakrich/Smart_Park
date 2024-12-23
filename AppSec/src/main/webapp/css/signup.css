@@ -1,0 +1,164 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #D2BC47;
+    margin: 0;
+}
+
+/* Sign Up Container Styling */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    max-width: 1000px;
+    /* Augmenter la largeur maximale à 1000px (ou toute autre valeur que tu préfères) */
+    width: 100%;
+    /* Assurer que la largeur s'ajuste à l'écran tout en respectant le max-width */
+}
+
+/* Logo Styling */
+.logo-container {
+    text-align: center;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 10px;
+}
+
+/* Form Container */
+.form-container h1 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-container p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #D2BC47;
+    box-shadow: 0 0 5px rgba(210, 188, 71, 0.5);
+}
+
+/* Password Visibility Toggle */
+.password-group {
+    position: relative;
+}
+
+.password-group .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #777;
+}
+
+.password-group .toggle-password:hover {
+    color: #333;
+}
+
+/* Terms and Conditions */
+.options {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.options input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #D2BC47;
+}
+
+.options a {
+    color: #D2BC47;
+    text-decoration: none;
+
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D2BC47;
+    color: white;
+    font-size: 16px;
+
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #b8a23f;
+}
+
+/* Redirect Link */
+.signin-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.signin-link a {
+    color: black;
+
+    text-decoration: none;
+}
+
+.signin-link a:hover {
+    text-decoration: underline;
+}

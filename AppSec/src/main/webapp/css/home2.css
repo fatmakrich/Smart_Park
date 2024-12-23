@@ -152,13 +152,3 @@ body {
   background-color: #137788;
   /* Couleur de fond au survol */
 }
-
-/* Règles spécifiques pour les petits écrans (moins de 768px) */
-@media (max-width: 768px) {
-  .sign-in-link {
-    font-size: 14px;
-    /* Diminuer la taille de la police sur mobile */
-    margin-left: 20px;
-    /* Garder l'alignement à gauche, ne pas centrer */
-  }
-}

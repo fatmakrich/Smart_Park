@@ -13,6 +13,7 @@ let filesToCache = [
     '/css/signup.css',
     '/css/style.css',
 
+    '/js/oauth.js',
     '/js/home2.js',
     '/js/main.js',
 ];
@@ -21,29 +22,19 @@ let filesToCache = [
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(cacheName).then((cache) => {
-            return cache.addAll(filesToCache);
+            return cache.addAll(urlsToCache);
         })
     );
 });
 
+// Servir les fichiers à partir du cache
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        fetch(event.request).then((response) => {
-            // Cloner la réponse immédiatement
-            const responseClone = response.clone();
-
-            // Mettre la réponse en cache
-            caches.open(cacheName).then((cache) => {
-                cache.put(event.request, responseClone);
-            });
-
-            // Retourner la réponse d'origine au client
-            return response;
+        caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || fetch(event.request);
         })
     );
 });
-
-
 
 // Activer le service worker et gérer les anciennes versions du cache
 self.addEventListener('activate', (event) => {
