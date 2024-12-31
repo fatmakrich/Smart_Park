@@ -1,31 +1,39 @@
 package tn.supcom.appsec.controllers;
+
 import jakarta.ejb.EJBException;
-import jakarta.ejb.LocalBean;
-import jakarta.ejb.Stateless;
+
 import jakarta.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import tn.supcom.appsec.entities.User;
 import tn.supcom.appsec.repositories.UserRepository;
 import tn.supcom.appsec.util.Argon2Utility;
-import jakarta.enterprise.context.ApplicationScoped;
 
-//@Stateless
-//@LocalBean
 @ApplicationScoped
 public class UserManager {
+
     @Inject
-    private UserRepository userRepository; // repository to interact with the user database
+    private UserRepository userRepository; // Repository to interact with the user database
 
-    public User findByUsername(String mail){ //takes mail as input and returns the user
-        final User user = userRepository.findById(mail).orElseThrow();
-        return user; // return the user with the mail specified.
+    // Finds a user by email (mail)
+    public User findByUsername(String mail) {
+        return userRepository.findById(mail).orElseThrow(() ->
+                new EJBException("User with mail: " + mail + " not found.") // Return user or throw exception if not found
+        );
     }
-    public User authenticate(final String mail, final String password) throws EJBException {// method used in sign in, takes username and password as input and returns the user if authentication succeeds
-        final User user = userRepository.findById(mail).orElseThrow();
-        if(user != null && Argon2Utility.check(user.getPassword() , password.toCharArray())){ //checks the password with the hashed password in the database
-            return user;
-        }
-        throw new EJBException("Failed sign in with mail: " + mail + " [Unknown mail or wrong password]");
 
+    // Authenticate method for users (sign in)
+    public User authenticate(final String mail, final String password) {
+        User user = userRepository.findById(mail).orElseThrow(() ->
+                new EJBException("Failed sign in with mail: " + mail + " [Unknown mail]") // If mail is not found
+        );
+
+        // Check if the password matches the stored password (hashed using Argon2)
+        if (Argon2Utility.check(user.getPassword(), password.toCharArray())) {
+            return user; // Authentication successful
+        }
+
+        // If the password is incorrect
+        throw new EJBException("Failed sign in with mail: " + mail + " [Wrong password]");
     }
 }

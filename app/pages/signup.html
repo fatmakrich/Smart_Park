@@ -5,134 +5,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Smart Park</title>
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="../css/signup.css">
     <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <div class="signup-container">
+        <!-- Logo Section -->
         <div class="logo-container">
-            <!-- Logo Section -->
             <img src="../images/smartpark.png" alt="Smart Park Logo" class="logo">
         </div>
-        <!DOCTYPE html>
-        <html lang="en">
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Sign Up - Smart Park</title>
-            <link rel="stylesheet" href="../css/signup.css">
-            <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
-        </head>
+        <!-- Form Section -->
+        <div class="form-container">
+            <h1>Create Your Account</h1>
+            <p>Sign up to get started with Smart Park</p>
 
-        <body>
-            <div class="signup-container">
-                <div class="logo-container">
-                    <!-- Logo Section -->
-                    <img src="../images/smartpark.png" alt="Smart Park Logo" class="logo">
+            <!-- Sign Up Form -->
+            <form id="signupForm" action="#" method="POST">
+                <!-- Username -->
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
                 </div>
 
-                <div class="form-container">
-                    <h1>Create Your Account</h1>
-                    <p>Sign up to get started with Smart Park</p>
-
-                    <!-- Sign Up Form -->
-                    <form id="signupForm">
-                        <!-- Username -->
-                        <div class="input-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" placeholder="Enter your username" required>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="Enter your email" required>
-                        </div>
-
-                        <!-- Password -->
-                        <div class="input-group password-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" placeholder="Enter your password" required>
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="input-group password-group">
-                            <label for="confirmPassword">Confirm Password</label>
-                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
-                        </div>
-
-                        <!-- Terms and Conditions -->
-                        <div class="options">
-                            <label>
-                                <input type="checkbox" id="agreeTerms" required>
-                                I agree to the <a href="#">Terms & Conditions</a>
-                            </label>
-                        </div>
-
-                        <!-- Sign Up Button -->
-                        <button type="submit">Sign Up</button>
-                    </form>
-
-                    <!-- Redirect to Sign In -->
-                    <p class="signin-link">
-                        Already have an account? <a href="signin.html">Sign In</a>
-                    </p>
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
-            </div>
 
+                <!-- Password -->
+                <div class="input-group password-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
 
-            <script>
-                // Fonction pour changer la visibilité du mot de passe
-                function togglePasswordVisibility(fieldId) {
-                    const passwordField = document.getElementById(fieldId);
-                    if (passwordField.type === 'password') {
-                        passwordField.type = 'text';
-                    } else {
-                        passwordField.type = 'password';
-                    }
-                }
-                console.log(hi)
-                document.getElementById("signupForm").onsubmit = function (event) {
-                    event.preventDefault(); // Empêcher la soumission du formulaire
+                <!-- Confirm Password -->
+                <div class="input-group password-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword"
+                        placeholder="Confirm your password" required>
+                </div>
 
-                    const formData = {
-                        email: document.getElementById('mail').value,
-                        fullname: document.getElementById('userName').value,
-                        password: document.getElementById('password').value,
-                    };
+                <!-- Terms and Conditions -->
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                </div>
 
-                    // Effectuer la requête AJAX vers le backend
-                    $.ajax({
-                        url: 'http://localhost:8080/api/user',  // Assurez-vous que l'URL correspond à l'API backend
-                        type: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData),
-                    })
+                <!-- Sign Up Button -->
+                <button type="submit">Sign Up</button>
+            </form>
 
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`Server returned status: ${response.status}`);
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            // Handle successful response
-                            alert('Account created successfully.');
+            <!-- Redirect to Sign In -->
+            <p class="signin-link">
+                Already have an account? <a href="signin.html">Sign In</a>
+            </p>
+        </div>
+    </div>
 
-                            // Redirect to home.html
-                            window.location.href = 'signin.html';
-                        })
-                        .catch(error => {
-                            // Handle error
-                            console.error('There was a problem with the fetch operation:', error);
-                            alert(`Failed to create an account. Error: ${error.message}`);
-                        });
-                };
-            </script>
-        </body>
+    <!-- Password Visibility Toggle Script -->
+    <script>
+        // Function to toggle password visibility
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            passwordField.type = (passwordField.type === 'password') ? 'text' : 'password';
+        }
+    </script>
 
-        </html>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/signup.js"></script>
+</body>
+
+</html>

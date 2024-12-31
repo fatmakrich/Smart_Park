@@ -1,5 +1,6 @@
 package tn.supcom.appsec.boundaries;
 
+import jakarta.ws.rs.core.Response;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -7,13 +8,10 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-
 import tn.supcom.appsec.util.Argon2Utility;
 import tn.supcom.appsec.entities.User;
 import tn.supcom.appsec.repositories.UserRepository;
-
-import java.util.Optional;
+import jakarta.ws.rs.WebApplicationException;
 
 @ApplicationScoped
 @Path("user")
@@ -26,24 +24,26 @@ public class SignUpEndpoint {
 
     @POST // Post method that receives User credentials from sign up in JSON format and saves it in the database
     public Response save(User user) {
-        // Check if the user already exists by mail (email as the unique identifier)
-        Optional<User> existingUser = repository.findById(user.getMail());
-        if (existingUser.isPresent()) {
+        try {
+            repository.findById(user.getMail()).orElseThrow(); // If User already exists, the request cannot go through
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity("{\"message\":\"User already exists!\"}")
                     .build();
+        } catch (Exception e) {
+            // Hash the password before saving it to the database
+            String password = user.getPassword();
+            String passwordHash = Argon2Utility.hash(password.toCharArray());
+
+            // Create a new User entity with the hashed password
+            User newUser = new User(user.getMail(), user.getUserName(), passwordHash, user.getPermissionLevel());
+
+            // Save the user in the repository
+            repository.save(newUser);
+
+            // Return a response indicating success with the created username
+            return Response.status(Response.Status.CREATED)
+                    .entity("{\"username created\": \"" + newUser.getUserName() + "\"}")
+                    .build();
         }
-
-        // Hash the password before saving
-        String password = user.getPassword();
-        String passwordHash = Argon2Utility.hash(password.toCharArray()); // Hash the password tapped by the user before saving it in the database
-
-        // Create a new User entity with the hashed password
-        User userHash = new User(user.getMail(), user.getUserName(), passwordHash); // Create new User entity with the hashed password
-        repository.save(userHash); // Save the data in MongoDB
-
-        return Response.ok()
-                .entity("{\"username created\": \"" + userHash.getUserName() + "\"}")
-                .build();
     }
 }

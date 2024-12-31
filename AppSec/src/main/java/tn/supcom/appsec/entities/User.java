@@ -14,39 +14,50 @@ import java.util.Objects;
 public class User implements Serializable, Identity { // User entity for database
 
     @Id
-    private String mail; //email address
+    private String mail; // email address
+
     @Column
     private String userName;
+
     @Column
     private String password;
 
-    // If you want to keep permissionLevel, you can add it here.
-    // @Column
-    // private Long permissionLevel;
+    @Column
+    private Long permissionLevel;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String mail, String userName, String password) {
+    public User(String mail, String userName, String password, Long permissionLevel) {
         this.mail = mail;
         this.userName = userName;
         this.password = password;
+        this.permissionLevel = permissionLevel;
     }
 
-    public String getMail() {
+    public String getMail() {  // Corrected getter method name
         return mail;
     }
 
-    public String getUserName() {
+    public String getUserName() {  // Corrected getter method name
         return userName;
     }
 
-    public String getPassword() {
+    public String getPassword() {  // Corrected getter method name
         return password;
+    }
+
+    public Long getPermissionLevel() {
+        return permissionLevel;
+    }
+
+    public void setPermissionLevel(Long permissionLevel) {
+        this.permissionLevel = permissionLevel;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mail);
+        return Objects.hashCode(mail);
     }
 
     @Override
@@ -58,7 +69,7 @@ public class User implements Serializable, Identity { // User entity for databas
     public String toString() {
         return "User{" +
                 "id='" + mail + '\'' +
-                ", userName='" + userName + '\'' +
+                ", fullname=" + userName +
                 '}';
     }
 }
