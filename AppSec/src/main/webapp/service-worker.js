@@ -1,78 +1,62 @@
-const cacheName = 'smartpark-cache-v1'; // Add versioning to cache
-const filesToCache = [
+const CACHE_NAME = 'smart-park-cache';
+const urlsToCache = [
     '/',
-    '/index.html',
-    '/pages/home.html',
-    '/pages/home2.html',
-    '/pages/signin.html',
-    '/pages/signup.html',
+    '/home.html',
+    '/signin.html',
+    '/signup.html',
+    '/forgetpassword.html',
+
+    '/js/index.js',
+    '/js/script.js',
+    '/js/signin.js',
+    '/js/signup.js',
 
     '/css/home.css',
-    '/css/home2.css',
     '/css/signin.css',
-    '/css/signup.css',
-    '/css/style.css',
 
-    '/js/home2.js',
-    '/js/main.js',
-    '/js/signup.js',
+    '/images/image.png',
+    '/images/image1.png',
+    '/images/search.png',
+    '/images/car.png',
 ];
 
-// Install event: Cache files
+// Installation du service worker et mise en cache des fichiers
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(cacheName).then((cache) => {
-            return cache.addAll(filesToCache);
-        }).catch((error) => {
-            console.error('Failed to cache files during install:', error);
+        caches.open(CACHE_NAME).then((cache) => {
+            console.log('Service Worker: Caching files');
+            return cache.addAll(urlsToCache);
         })
     );
 });
 
-// Fetch event: Serve from cache or fetch from network
+// Récupération des ressources mises en cache lors des requêtes
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        (async () => {
-            try {
-                const cache = await caches.open(cacheName);
-
-                // Only cache GET requests
-                if (event.request.method === 'GET') {
-                    const cachedResponse = await cache.match(event.request);
-
-                    // Return cache if available, else fetch from network
-                    if (cachedResponse) return cachedResponse;
-
-                    const networkResponse = await fetch(event.request);
-                    // Clone and cache the response
-                    cache.put(event.request, networkResponse.clone());
-                    return networkResponse;
-                }
-
-                // Return network response for non-GET requests
-                return fetch(event.request);
-            } catch (error) {
-                console.error('Fetch failed:', error);
-                return caches.match('/offline.html'); // Optionally return an offline fallback
+        caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+                console.log('Serving from cache: ', event.request.url);
+                return cachedResponse;
             }
-        })()
+            console.log('Fetching from network: ', event.request.url);
+            return fetch(event.request);
+        })
     );
 });
 
-// Activate event: Clean up old caches
+// Activation du service worker et suppression des anciennes caches
 self.addEventListener('activate', (event) => {
-    const cacheWhitelist = [cacheName];
-
+    const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
-        caches.keys().then((cacheNames) =>
-            Promise.all(
-                cacheNames.map((cache) => {
-                    if (!cacheWhitelist.includes(cache)) {
-                        console.log(`Deleting old cache: ${cache}`);
-                        return caches.delete(cache);
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (!cacheWhitelist.includes(cacheName)) {
+                        console.log('Deleting old cache: ', cacheName);
+                        return caches.delete(cacheName);
                     }
                 })
-            )
-        )
+            );
+        })
     );
 });

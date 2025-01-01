@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Smart Park</title>
+    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="icon" href="../images/smartpark.png" type="image/x-icon">
+</head>
+
+
+<body>
+    <div class="signup-container">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <img src="../images/smartpark.png" alt="Smart Park Logo" class="logo">
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-container">
+            <h1>Create Your Account</h1>
+            <p>Sign up to get started with Smart Park</p>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm">
+                <!-- Username -->
+                <div class="input-group">
+                    <label for="inputUserName">Username</label>
+                    <input type="text" id="inputUserName" name="username" placeholder="Enter your username" required>
+                </div>
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" id="inputEmail" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group password-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" name="password" placeholder="Enter your password"
+                        required>
+                </div>
+                <!-- Confirm Password -->
+                <div class="input-group password-group">
+                    <label for="inputConfirmPassword">Confirm Password</label>
+                    <input type="password" id="inputConfirmPassword" name="confirmPassword"
+                        placeholder="Confirm your password" required>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                </div>
+            </form>
+            <div class="center-all">
+                <button class="btn" id="signup-button">Sign Up</button>
+            </div>
+            <br />
+            <div id="problems link">
+                <a class="form-link" href="signin">Login to existing account</a>
+                <a class="form-link" href="forgetpassword">Recover lost account</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Link to the external JS file -->
+    <script src="../js/signup.js"></script>
+</body>
+
+</html>

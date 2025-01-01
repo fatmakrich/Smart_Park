@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Simulating authentication request (Replace with actual API endpoint)
                         $.ajax({
-                            url: "https://labidiaymen.me/api/authenticate/",
+                            url: "http://localhost:8080/api/authenticate",
                             type: "POST",
                             data: JSON.stringify(reqObj),
                             dataType: "json",
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 // Simulating token request (Replace with actual API endpoint)
                                 $.ajax({
-                                    url: "https://labidiaymen.me/api/oauth/token",
+                                    url: "http://localhost:8080/api/oauth/token",
                                     type: "GET",
                                     headers: {
                                         Accept: "application/json",

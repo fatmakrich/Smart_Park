@@ -13,27 +13,27 @@ document.getElementById("signup-button").onclick = function () {
     }
 
     // Create the request object
-    let reqObj = {"mail": mail, "userName":userName, "password": password,"permissionLevel":1};
+    let reqObj = { "mail": mail, "userName": userName, "password": password, "permissionLevel": 1 };
 
     // Perform the AJAX request
     $.ajax({
-        url: baseURL+'api/user',
+        url: baseURL + 'api/user',
         type: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         data: JSON.stringify(reqObj),
-        success: function(data) {
+        success: function (data) {
             // Handle the success response from the server if needed
             console.log('User created successfully.');
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             // Handle errors from the server
             console.error('Error creating user:', error);
             console.log(xhr.responseText);
         },
-        complete: function() {
+        complete: function () {
             // This block will be executed regardless of success or failure
             console.log('Request completed.');
         }
