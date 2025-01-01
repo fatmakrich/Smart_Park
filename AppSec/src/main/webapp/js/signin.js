@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     async function generateRandomString(length) {
         const array = new Uint32Array(length);

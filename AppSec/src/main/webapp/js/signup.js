@@ -1,4 +1,4 @@
-// Attach the click event handler to the signup button
+
 const baseURL = window.location.protocol + "//" + window.location.hostname + ":8080/"
 document.getElementById("signup-button").onclick = function () {
     // Get the values from the input fields

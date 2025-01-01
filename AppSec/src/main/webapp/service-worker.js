@@ -1,3 +1,4 @@
+
 const CACHE_NAME = 'smart-park-cache';
 const urlsToCache = [
     '/',
@@ -11,8 +12,11 @@ const urlsToCache = [
     '/js/signin.js',
     '/js/signup.js',
 
+    '/css/style.css',
     '/css/home.css',
+    '/css/signup.css',
     '/css/signin.css',
+    '/css/forgetpass.css',
 
     '/images/image.png',
     '/images/image1.png',

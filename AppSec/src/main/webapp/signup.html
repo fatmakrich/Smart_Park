@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Smart Park</title>
-    <link rel="stylesheet" href="../css/signup.css">
-    <link rel="icon" href="../images/smartpark.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="icon" href="images/smartpark.png" type="image/x-icon">
 </head>
 
 
@@ -14,7 +14,7 @@
     <div class="signup-container">
         <!-- Logo Section -->
         <div class="logo-container">
-            <img src="../images/smartpark.png" alt="Smart Park Logo" class="logo">
+            <img src="images/smartpark.png" alt="Smart Park Logo" class="logo">
         </div>
 
         <!-- Form Section -->
@@ -60,16 +60,19 @@
             <div class="center-all">
                 <button class="btn" id="signup-button">Sign Up</button>
             </div>
-            <br />
-            <div id="problems link">
-                <a class="form-link" href="signin">Login to existing account</a>
-                <a class="form-link" href="forgetpassword">Recover lost account</a>
-            </div>
+           </br>
+            <p style="font-size: 0.9em; color: gray;">
+                Already you have an account?
+                <a href="signin.html" style="color: black; text-decoration: underline;">Sign in</a>
+            </p>
+            <p style="font-size: 0.9em; color: gray;">
+                <a href="forgetpassword.html" style="color: #b09231; text-decoration: underline;">Forget password</a>
+            </p>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Link to the external JS file -->
-    <script src="../js/signup.js"></script>
+    <script src="js/signup.js"></script>
 </body>
 
 </html>
