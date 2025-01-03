@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Parking Spot</title>
+    <link rel="stylesheet" href="css/reservation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+
+        <form id="reservation-form">
+            <h1>Reserve Your Parking Spot</h1>
+            <!-- Spot ID Selection -->
+            <div class="form-group">
+                <label for="parking-id">Select Parking Id:</label>
+                <select id="parking-id" required>
+                    <option value="F11">Parking ID: F11</option>
+                    <option value="F12">Parking ID: F12</option>
+                </select>
+            </div>
+
+            <!-- Spot ID Selection -->
+            <div class="form-group">
+                <label for="spot-id">Select Spot ID:</label>
+                <select id="spot-id" required>
+                    <option value="1">Spot ID: 1</option>
+                    <option value="2">Spot ID: 2</option>
+                    <option value="3">Spot ID: 3</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+
+            <!-- Hours Selection -->
+            <div class="form-group">
+                <label for="hours">Select Number of Hours:</label>
+                <div class="hour-controls">
+                    <button type="button" class="control-btn" id="decrease-hours">-</button>
+                    <input type="text" id="hours" value="1" readonly>
+                    <button type="button" class="control-btn" id="increase-hours">+</button>
+                </div>
+            </div>
+
+            <!-- Time Selection -->
+            <div class="form-group">
+                <label for="select-time">Select Time:</label>
+                <input type="time" id="select-time" required>
+            </div>
+
+            <!-- Payment Method Selection -->
+            <div class="form-group">
+                <label for="payment-method">Select Payment Method:</label>
+                <select id="payment-method" required>
+                    <option value="credit-card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="cash">Cash</option>
+                </select>
+            </div>
+
+            <!-- Price Display -->
+            <div class="price-display">
+                <span class="price-icon">💰</span>
+                <p>Total Price: <span id="price">5</span> dinars</p>
+            </div>
+            <br>
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Pay and Reserve</button>
+        </form>
+
+        <!-- Booking Information Display -->
+        <div id="booking-info" class="hidden">
+            <div>
+                <p><strong>Spot successfully booked!</strong></p>
+                <p><strong>Parking ID:</strong> <span id="booking-Parking-id"></span></p>
+                <p><strong>Spot ID:</strong> <span id="booking-spot-id"></span></p>
+                <p><strong>Booking Number:</strong> <span id="booking-number"></span></p>
+                <p><strong>Price:</strong> <span id="booking-price"></span> dinars</p>
+                <p>Thank you for choosing us!</p>
+            </div>
+            <i id="booking-icon" class="fas fa-check-circle" style="color: green;"></i>
+        </div>
+
+    </div>
+
+    <script src="js/reservation.js"></script>
+</body>
+
+</html>

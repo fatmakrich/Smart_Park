@@ -5,13 +5,16 @@ const urlsToCache = [
     '/home.html',
     '/signin.html',
     '/signup.html',
+    '/reservation.html',
     '/forgetpassword.html',
 
+    '/js/reservation.js',
     '/js/index.js',
     '/js/script.js',
     '/js/signin.js',
     '/js/signup.js',
 
+    '/css/reservation.css',
     '/css/style.css',
     '/css/home.css',
     '/css/signup.css',
