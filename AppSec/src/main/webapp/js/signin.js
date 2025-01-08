@@ -1,140 +1,153 @@
-
-document.addEventListener('DOMContentLoaded', function () {
-    async function generateRandomString(length) {
-        const array = new Uint32Array(length);
+// Attendre que le DOM soit chargé avant d'exécuter le script
+document.addEventListener("DOMContentLoaded", () => {
+    // Fonction pour générer un code de vérification aléatoire
+    function generateCodeVerifier() {
+        const array = new Uint32Array(28); // 28 * 4 bytes = 112 bytes (suffisant pour base64url)
         window.crypto.getRandomValues(array);
-        return Array.from(array, (dec) => ("0" + dec.toString(16)).substr(-2)).join("");
+        return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
     }
 
-    async function sha256(plain) {
+    // Calculer le hash SHA256 d'une chaîne
+    function sha256(plain) {
         const encoder = new TextEncoder();
         const data = encoder.encode(plain);
-        return window.crypto.subtle.digest("SHA-256", data);
+        return window.crypto.subtle.digest('SHA-256', data);
     }
 
+    // Encoder en base64url
     function base64urlencode(str) {
         return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
-            .replace(/\+/g, "-")
-            .replace(/\//g, "_")
-            .replace(/=+$/, "");
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=+$/, ''); // Supprimer les remplissages
     }
 
-    async function pkceChallengeFromVerifier(v) {
-        const hashed = await sha256(v);
+    // Générer le challenge PKCE à partir du code verifier
+    async function pkceChallengeFromVerifier(codeVerifier) {
+        const hashed = await sha256(codeVerifier);
         return base64urlencode(hashed);
     }
 
-    function utf8_to_b64(str) {
-        return window.btoa(unescape(encodeURIComponent(str)));
+    // Étape 1 : Pré-autorisation via /api/authorize
+    async function preAuthorize() {
+        const codeVerifier = generateCodeVerifier();
+        const codeChallenge = await pkceChallengeFromVerifier(codeVerifier);
+
+        // Stocker le codeVerifier pour l'utiliser plus tard
+        localStorage.setItem("codeVerifier", codeVerifier);
+
+        const clientId = "1"; // À modifier si nécessaire
+        const preAuthorizationHeader = `Bearer ${btoa(`${clientId}#${codeChallenge}`)}`;
+
+        try {
+            const response = await fetch("http://localhost:8080/api/authorize", {
+                method: "POST",
+                headers: {
+                    "Pre-Authorization": preAuthorizationHeader,
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (response.ok) {
+                const data = await response.json();
+                console.log("Response from /authorize:", data);
+            } else {
+                console.error("Error during /authorize:", await response.text());
+            }
+        } catch (error) {
+            console.error("Error during pre-authorization:", error);
+        }
     }
 
-    window.onload = start;
+    // Étape 2 : Authentification utilisateur via /api/authenticate
+    async function authenticateUser(mail, password) {
+        const body = JSON.stringify({ mail, password });
 
-    async function start() {
-        var state = await generateRandomString(28);
-        var code_verifier = await generateRandomString(28);
-        var code_challenge = await pkceChallengeFromVerifier(code_verifier);
+        try {
+            const response = await fetch("http://localhost:8080/api/authenticate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body,
+                credentials: 'include'
+            });
 
-        console.log("state:", state);
-        console.log("code_verifier:", code_verifier);
-        localStorage.setItem("codeverif", code_verifier);
-        console.log("code_challenge:", code_challenge);
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Authentication successful:", data);
 
-        var step = utf8_to_b64(state + "#" + code_challenge);
-        console.log("step:", step);
+                // Récupérer le code d'autorisation
+                const authorizationCode = data.authorization_code;
+                console.log("Authorization Code:", authorizationCode);
 
-        var step2 = "Bearer " + step;
+                // Étape 3 : Échanger le code contre un access token
+                await exchangeAuthorizationCodeForToken(authorizationCode);
 
-        $.ajax({
-            url: "http://localhost:8080/api/authorize",
-            type: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "Pre-Authorization": step2,
-            },
-            complete: function (data) {
-                console.log("Authorization request completed.");
-                console.log("data.responseJSON:", data.responseJSON);
-
-                // Scenario: Successful Authorization Request
-                if (data.status === 302) {
-                    console.log("Authorization request successful.");
-                    localStorage.setItem("signInId", data.responseJSON.signInId);
-
-                    document.getElementById("signInButton").onclick = function () {
-                        var signInId = localStorage.getItem("signInId");
-                        var mail = document.getElementById("username").value;
-                        var password = document.getElementById("password").value;
-
-                        let reqObj = { mail: mail, password: password, signInId: signInId };
-                        console.log(JSON.stringify(reqObj));
-                        console.log("Sending authentication request...");
-
-                        // Simulating authentication request (Replace with actual API endpoint)
-                        $.ajax({
-                            url: "http://localhost:8080/api/authenticate",
-                            type: "POST",
-                            data: JSON.stringify(reqObj),
-                            dataType: "json",
-                            headers: {
-                                Accept: "application/json",
-                                "Content-Type": "application/json",
-                            },
-                            success: function (data) {
-                                console.log("Authentication success:", data);
-
-                                // Scenario: Successful Authentication
-                                var code_verifier = localStorage.getItem("codeverif");
-                                localStorage.setItem("mail", mail);
-                                var access = "Bearer " + utf8_to_b64(data.authCode + "#" + code_verifier);
-
-                                // Simulating token request (Replace with actual API endpoint)
-                                $.ajax({
-                                    url: "http://localhost:8080/api/oauth/token",
-                                    type: "GET",
-                                    headers: {
-                                        Accept: "application/json",
-                                        "Content-Type": "application/json",
-                                        "Post-Authorization": access,
-                                    },
-                                    success: function (data) {
-                                        alert("Welcome Back!");
-                                        console.log("Token request success:", data);
-
-                                        localStorage.setItem("accesstoken", data.accessToken);
-                                        localStorage.setItem("refreshtoken", data.refreshToken);
-                                        localStorage.removeItem("signInId");
-                                        console.log("ok");
-                                        location.href = "home.html";
-                                    },
-                                    error: function (xhr, textStatus, errorThrown) {
-                                        console.error("Error in getting token:", errorThrown);
-                                        // Handle error cases if needed
-                                    },
-                                });
-                            },
-                            error: function (xhr, textStatus, errorThrown) {
-                                // Scenario: Authentication Failure
-                                console.error("Authentication failure:", errorThrown);
-                                alert("Authentication failure. Please check your credentials and try again.");
-                                // Handle error cases if needed
-
-                                // Clear the form fields
-                                document.getElementById("username").value = "";
-                                document.getElementById("password").value = "";
-                                // Handle error cases if needed
-                            },
-                        });
-                    };
-                } else {
-                    alert("Authentication failure. Please check your credentials and try again.");
-                    // Handle error cases if needed
-                    // Clear the form fields
-                    document.getElementById("username").value = "";
-                    document.getElementById("password").value = "";
-                }
+                // Rediriger vers la carte
+                window.location.href = "map.html";
+            } else {
+                console.error("Authentication failed:", await response.text());
             }
+        } catch (error) {
+            console.error("Error during authentication:", error);
+        }
+    }
+
+    // Étape 3 : Échanger le code d'autorisation pour un access token
+    async function exchangeAuthorizationCodeForToken(authorizationCode) {
+        const codeVerifier = localStorage.getItem("codeVerifier");
+
+        if (!codeVerifier) {
+            console.error("Code verifier is missing. Cannot exchange authorization code.");
+            return;
+        }
+
+        const body = JSON.stringify({
+            authorization_code: authorizationCode,
+            code_verifier: codeVerifier
         });
+
+        try {
+            const response = await fetch("http://localhost:8080/api/oauth/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body,
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Access Token Response:", data);
+
+                const accessToken = data.access_token;
+                console.log("Access Token:", accessToken);
+            } else {
+                console.error("Error during token exchange:", await response.text());
+            }
+        } catch (error) {
+            console.error("Error during token exchange:", error);
+        }
+    }
+
+    // Ajouter les écouteurs d'événements
+    const signInButton = document.getElementById("signInButton");
+    if (signInButton) {
+        signInButton.addEventListener("click", (e) => {
+            e.preventDefault(); // Empêcher le formulaire de se soumettre
+            const mail = document.getElementById("mail").value;
+            const password = document.getElementById("password").value;
+            authenticateUser(mail, password);
+        });
+    }
+
+    const preAuthorizeButton = document.getElementById("preAuthorizeButton");
+    if (preAuthorizeButton) {
+        preAuthorizeButton.addEventListener("click", preAuthorize);
     }
 });
